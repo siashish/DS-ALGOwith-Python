@@ -21,6 +21,9 @@ class Queue:
 
     def size(self):
         return len(self.queue)
+    
+    def peek(self):
+        return self.queue[0]
 
 q = Queue()
 q.enqueue(34)
@@ -36,3 +39,4 @@ q.enqueue(377)
 q.dequeue()
 q.display()
 print(q.size())
+print(q.peek())
