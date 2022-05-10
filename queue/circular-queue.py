@@ -17,12 +17,31 @@ class circularqueue():
             self.rear = (self.rear+1)%self.k
             self.queue[self.rear] = data
 
+    def dequeue(self):
+        if (self.front==-1):
+            print("No element in the circular queue")
+        elif (self.front == self.rear):
+            temp = self.queue[self.front]
+            self.queue[self.front]=None
+            self.front=-1
+            self.rear=-1
+            return temp
+        else:
+            temp = self.queue[self.front]
+            self.queue[self.front]=None
+            self.front = (self.front+1)% self.k
+            return temp
+
 cq = circularqueue(4)
 cq.enqueue(10)
 cq.enqueue(20)
 cq.enqueue(30)
 cq.enqueue(40)
-cq.enqueue(50)
+
 print(cq.queue)
-print(cq.front)
-print(cq.rear)
+
+cq.dequeue()
+cq.enqueue(50)
+cq.dequeue()
+cq.enqueue(60)
+print(cq.queue)
