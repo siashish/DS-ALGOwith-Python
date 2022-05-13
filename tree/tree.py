@@ -12,13 +12,37 @@
 # Level of a Node
 # Subtree
 
-# def printPraents(node,adj,parent):
-#     if(parent==0):
-#         print(node,"->Root")
-#     else:
-#         print(node,"->",parent)
+def printPraents(node,adj,parent):
+    if(parent==0):
+        print(node,"->Root")
+    else:
+        print(node,"->",parent)
 
-#     for
+    # Using DFS
+    for current in adj[node]:
+        if (current != parent):
+            printPraents(current,adj, node)
+
+def printChildren(Root,adj):
+    q = []
+
+    q.append(Root)
+
+    visit = [0]*len(adj)
+
+    # Using BFS
+    while (len(q)>0):
+        node = q[0]
+        q.pop(0)
+        visit[node] = 1
+        print(node, "->", end=" ")
+
+        for current in adj[node]:
+            if visit[current] == 0:
+                print(current," ",end=" ")
+                q.append(current)
+        print("\n")
+
 
 N =7
 Root=1
@@ -53,3 +77,8 @@ adj[7].append(4)
 print(adj)
 
 
+print("printing the parents")
+printPraents(Root,adj,0)
+
+print("Printing the children")
+printChildren(Root,adj)
