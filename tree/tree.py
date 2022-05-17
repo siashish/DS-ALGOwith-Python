@@ -12,6 +12,9 @@
 # Level of a Node
 # Subtree
 
+from logging import root
+
+
 def printPraents(node,adj,parent):
     if(parent==0):
         print(node,"->Root")
@@ -43,6 +46,20 @@ def printChildren(Root,adj):
                 q.append(current)
         print("\n")
 
+def printLeafNodes(Root,adj):
+    for i in range(0,len(adj)):
+        if (len(adj[i]) == 1 and i!=Root):
+            print(i,end=" ")
+    print("\n")
+
+def printDegree(Root,adj):
+    for i in range(1,len(adj)):
+        print(i, " -> ",end=" ")
+
+        if(i==Root):
+            print(len(adj[i]))
+        else:
+            print(len(adj[i])-1)
 
 N =7
 Root=1
@@ -82,3 +99,9 @@ printPraents(Root,adj,0)
 
 print("Printing the children")
 printChildren(Root,adj)
+
+print("Printing the leaf nodes")
+printLeafNodes(Root,adj)
+
+print("printing the Degree of nodes")
+printDegree(Root,adj)
