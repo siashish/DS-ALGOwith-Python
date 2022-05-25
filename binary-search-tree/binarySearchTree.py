@@ -41,6 +41,35 @@ def search(node,key):
     if key > node.Key:
         return search(node.right,key)
 
+def minValue(node):
+    current = node
+
+    while(current.left is not None):
+        current = current.left
+    return current
+
+def delete(root,key):
+    if root is None:
+        return root
+    if key < root.Key:
+        root.left = delete(root.left,key)
+    if key > root.Key:
+        root.right = delete(root.right,key)
+    else:
+        if root.left is None:
+            temp = root.right
+            root = None
+            return temp
+        elif root.right is None:
+            temp = root.left
+            root = None
+            return temp
+        temp = minValue(root.right)
+        root.Key = temp.Key
+        root.right = delete(root.right,temp.Key)
+
+    return root
+    
 
 root = None
 root = insert(root,10)
@@ -59,4 +88,9 @@ if var!= None:
     print("found the element")
 else:
     print("not found")
+
+root = delete(root,10)
+
+print("Inorder traversal ",end=' ')
+inorder(root)
 
