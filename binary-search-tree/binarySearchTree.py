@@ -33,25 +33,25 @@ def inorder(root):
 
 def preorder(root):
     if root is not None:
+         # print root
+        print(str(root.Key)+" -> ",end=' ')
+
         # traversr left
         preorder(root.left)
 
         # traverse right
         preorder(root.right)
 
-         # print root
-        print(str(root.Key)+" -> ",end=' ')
-
 def postorder(root):
     if root is not None:
-         # print root
-        print(str(root.Key)+" -> ",end=' ')
-
         # traversr left
         postorder(root.left)
 
         # traverse right
         postorder(root.right)
+
+         # print root
+        print(str(root.Key)+" -> ",end=' ')
 
         
 
