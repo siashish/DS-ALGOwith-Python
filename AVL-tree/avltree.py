@@ -1,5 +1,7 @@
 import sys
 
+from requests import delete
+
 class TreeNode(object):
     def __init__(self,key):
         self.key = key
@@ -25,7 +27,58 @@ class AVLTree(object):
             else:
                 root.left = self.rightRotation(root.right)
                 return self.leftRotation(root)
+        if balanceFactor < -1:
+            if key > root.right.key:
+                return self.leftRotation(root)
+            else:
+                root.right = self.rightRotation(root.right)
+                return self.leftRotation(root)
         return root
+    
+    def delete_node(self,root,key):
+        if  not root:
+            return root
+        elif key < root.key:
+            root.left = self.delete_node(root.left,key)
+        elif key> root.key:
+            root.right = self.delete_node(root.right,key)
+        else:
+            if root.left is None:
+                temp = root.right
+                root = None
+                return temp
+            if root.right is None:
+                temp = root.left
+                root = None
+                return temp
+            temp = self.getMinValueNode(root.right)
+            root.key = temp.key
+            root.right = self.delete_node(root.right,temp.key)
+        if root is None:
+            return root
+
+        root.height = 1+max(self.getHight(root.left),self.getHight(root.right))
+
+        balanceFactor = self.getBalance(root)
+        if balanceFactor > 1:
+            if self.getBalance(root.left)>=0:
+                return self.rightRotation(root)
+            else:
+                root.left = self.leftRotation(root.left)
+                return self.rightRotation(root)
+        if balanceFactor < -1:
+            if self.getBalance(root.right)>=0:
+                return self.leftRotation(root)
+            else:
+                root.left = self.rightotation(root.right)
+                return self.leftRotation(root)
+        return root
+            
+
+    def getMinValueNode(self, root):
+        if root is None or root.left is None:
+            return root
+        return self.getMinValueNode(root.left)
 
     def leftRotation(self,z):
         y = z.right
@@ -80,5 +133,9 @@ nums = [33, 13, 52, 9, 21, 61, 8, 11]
 for num in nums:
     root = myTree.inset_node(root,num)
 
+myTree.printTree(root, "",True)
+
+key = 13
+root = myTree.delete_node(root,key)
 myTree.printTree(root, "",True)
 
